@@ -1,3 +1,7 @@
+# Data Visualization Challenge
+
+This project is an implementation of a prototype to visualize data from a network provider.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
