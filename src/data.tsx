@@ -25,12 +25,12 @@ export interface ITrafficData {
   volume: number;
 }
 
-interface IDeviceData {
+export interface IDeviceData {
   name: string;
   value: number;
   percent: number;
 }
-interface IServiceData {
+export interface IServiceData {
   name: string;
   value: number;
 }
@@ -100,8 +100,8 @@ export const data: IData[] = [
       },
       {
         name: 'LG C9 OLED TV',
-        value: 0.32,
-        percent: 2
+        value: 0.88,
+        percent: 7
       },
       {
         name: 'Samsung Q90',
@@ -110,8 +110,8 @@ export const data: IData[] = [
       },
       {
         name: 'QLED TV',
-        value: 0.22,
-        percent: 1
+        value: 0.66,
+        percent: 6
       },
       {
         name: 'iPhone X',
@@ -207,13 +207,13 @@ export const data: IData[] = [
       },
       {
         name: 'LG C9 OLED TV',
-        value: 0.1,
-        percent: 1
+        value: 0.99,
+        percent: 9
       },
       {
         name: 'Samsung Q90',
         value: 1.98,
-        percent: 4
+        percent: 6
       },
       {
         name: 'QLED TV',
@@ -223,7 +223,7 @@ export const data: IData[] = [
       {
         name: 'iPhone X',
         value: 4.1,
-        percent: 32
+        percent: 31
       },
       {
         name: 'Windows',
@@ -248,14 +248,14 @@ export const data: IData[] = [
     ],
     service: [
       { name: 'Youtube', value: 940 },
-      { name: 'Xbox', value: 876 }
+      { name: 'Xbox', value: 876 },
       { name: 'HTTP media stream', value: 721 },
       { name: 'Amazon Prime', value: 682 },
       { name: 'Netflix', value: 653 },
       { name: 'Hulu', value: 562 },
       { name: 'iTunes purchase', value: 512 },
       { name: 'HBO Now', value: 223 },
-      { name: 'SSL v3', value: 113 },
+      { name: 'SSL v3', value: 113 }
     ]
   }
 ];

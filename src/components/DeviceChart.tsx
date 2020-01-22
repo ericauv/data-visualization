@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 import {
   ResponsiveContainer,
   PieChart,
@@ -10,33 +11,10 @@ import {
   Legend
 } from 'recharts';
 
-interface IData {
-  name: string;
-  value: number;
-}
+import { data as fullDataSet, IDeviceData } from '../data';
 
-const data = [
-  {
-    name: 'iPhone 11',
-    trafficValue: 1.22,
-    trafficPercent: 11,
-    fill: '#0088FE'
-  },
-  {
-    name: 'Galaxy 10',
-    trafficValue: 2.44,
-    trafficPercent: 22,
-    fill: '#00C49F'
-  },
-  { name: 'iPad Pro', trafficValue: 3.66, trafficPercent: 33, fill: '#FFBB28' },
-  { name: 'Note 10', trafficValue: 1.75, trafficPercent: 15, fill: '#FF8042' }
-];
+const [data, otherData] = fullDataSet.map((entry, index) => entry.device);
 
-interface IPayload {
-  name: string;
-  trafficValue: number;
-  trafficPercent: number;
-}
 interface IActiveShapeProps {
   cx: number;
   cy: number;
@@ -46,7 +24,7 @@ interface IActiveShapeProps {
   startAngle: number;
   endAngle: number;
   fill: string;
-  payload: IPayload;
+  payload: IDeviceData;
   percent: number;
   value: number;
 }
@@ -61,9 +39,7 @@ const renderActiveShape = (props: IActiveShapeProps) => {
     startAngle,
     endAngle,
     fill,
-    payload,
-    percent,
-    value
+    payload
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
@@ -83,7 +59,7 @@ const renderActiveShape = (props: IActiveShapeProps) => {
         dy={-20}
         textAnchor="middle"
         fill={'black'}
-        style={{ fontWeight: 'bold' }}
+        style={{ fontWeight: 'bold', fontSize: '14px' }}
       >
         {payload.name}
       </text>
@@ -93,12 +69,19 @@ const renderActiveShape = (props: IActiveShapeProps) => {
         dy={20}
         textAnchor="middle"
         fill={'black'}
-        style={{ fontWeight: 'bold' }}
+        style={{ fontWeight: 'bold', fontSize: '14px' }}
       >
-        {`${payload.trafficValue} TB`}
+        {`${payload.value} TB`}
       </text>
-      <text x={cx} y={cy} dy={40} textAnchor="middle" fill={'black'}>
-        {`${payload.trafficPercent}%`}
+      <text
+        x={cx}
+        y={cy}
+        dy={40}
+        textAnchor="middle"
+        style={{ fontSize: '12px' }}
+        fill={'black'}
+      >
+        {`${payload.percent}%`}
       </text>
 
       <Sector
@@ -114,16 +97,15 @@ const renderActiveShape = (props: IActiveShapeProps) => {
   );
 };
 
-const RADIAN = Math.PI / 180;
-
 const DeviceChart = () => {
+  const themeContext = useContext(ThemeContext);
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const onPieEnter = (data: IData, index: number) => {
+  const onPieEnter = (data: IDeviceData, index: number) => {
     setActiveIndex(index);
   };
 
   return (
-    <div style={{ width: '50%', height: '400px' }}>
+    <>
       <ResponsiveContainer>
         <PieChart>
           <Legend
@@ -136,22 +118,29 @@ const DeviceChart = () => {
             activeIndex={activeIndex}
             activeShape={renderActiveShape}
             data={data}
-            cx={300}
-            cy={200}
             innerRadius={60}
             outerRadius={100}
             fill="#8884d8"
-            dataKey="trafficPercent"
+            dataKey="percent"
             onMouseEnter={onPieEnter}
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.fill}></Cell>
+              <Cell
+                key={`cell-${index}`}
+                fill={
+                  themeContext.colors[index]
+                    ? themeContext.colors[index]
+                    : themeContext.colors[
+                        index % (themeContext.colors.length - 1)
+                      ]
+                }
+              ></Cell>
             ))}
           </Pie>
         </PieChart>
       </ResponsiveContainer>
       <p>Traffic share by % volume</p>
-    </div>
+    </>
   );
 };
 
