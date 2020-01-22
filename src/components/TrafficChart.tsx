@@ -7,9 +7,11 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
-import { data as fullDataSet } from '../data';
+import { ITrafficData } from '../data';
 
-const [data, otherData] = fullDataSet.map((entry, index) => entry.traffic);
+interface IProps {
+  data: ITrafficData[];
+}
 
 const tickFormatter = (tick: number) => {
   // Returns time strings for 12AM, 12PM, and 11PM, otherwise returns an empty string
@@ -39,7 +41,8 @@ const customizedAxisTick = (props: { x: any; y: any; payload: any }) => {
   );
 };
 
-const TrafficChart = () => {
+const TrafficChart: React.FC<IProps> = props => {
+  const { data } = props;
   return (
     <ResponsiveContainer>
       <ComposedChart
@@ -60,9 +63,7 @@ const TrafficChart = () => {
         <XAxis
           tick={customizedAxisTick}
           domain={['dataMin', 'dataMax']}
-          // tickFormatter={tickFormatter}
           interval="preserveStartEnd"
-          // scale="time"
           tickLine={false}
           dataKey="time"
           label={{

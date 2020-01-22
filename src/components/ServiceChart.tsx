@@ -12,6 +12,12 @@ import {
 import styled from 'styled-components';
 import { IServiceData } from '../data';
 
+interface IProps {
+  data: IServiceData;
+  fill: string;
+  domainMax: number;
+}
+
 const renderCustomizedLabel: ContentRenderer<LabelProps> = props => {
   const { x, y, width, height, value } = props;
   const xPosition = width && x ? width + x : x;
@@ -32,12 +38,6 @@ const renderCustomizedLabel: ContentRenderer<LabelProps> = props => {
     </text>
   );
 };
-
-interface IProps {
-  data: IServiceData;
-  fill: string;
-  domainMax: number;
-}
 
 const ChartContainer = styled.div`
   height: 12%;

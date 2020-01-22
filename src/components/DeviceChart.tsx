@@ -6,14 +6,13 @@ import {
   Pie,
   Sector,
   Cell,
-  Label,
-  Text,
   Legend
 } from 'recharts';
+import { IDeviceData } from '../data';
 
-import { data as fullDataSet, IDeviceData } from '../data';
-
-const [data, otherData] = fullDataSet.map((entry, index) => entry.device);
+interface IProps {
+  data: IDeviceData[];
+}
 
 interface IActiveShapeProps {
   cx: number;
@@ -29,11 +28,10 @@ interface IActiveShapeProps {
   value: number;
 }
 const renderActiveShape = (props: IActiveShapeProps) => {
-  const RADIAN = Math.PI / 180;
+  // renders the currently hovered piece of the pie chart
   const {
     cx,
     cy,
-    midAngle,
     innerRadius,
     outerRadius,
     startAngle,
@@ -41,15 +39,6 @@ const renderActiveShape = (props: IActiveShapeProps) => {
     fill,
     payload
   } = props;
-  const sin = Math.sin(-RADIAN * midAngle);
-  const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (outerRadius + 10) * cos;
-  const sy = cy + (outerRadius + 10) * sin;
-  const mx = cx + (outerRadius + 30) * cos;
-  const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-  const ey = my;
-  const textAnchor = cos >= 0 ? 'start' : 'end';
 
   return (
     <g>
@@ -97,7 +86,8 @@ const renderActiveShape = (props: IActiveShapeProps) => {
   );
 };
 
-const DeviceChart = () => {
+const DeviceChart: React.FC<IProps> = props => {
+  const { data } = props;
   const themeContext = useContext(ThemeContext);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const onPieEnter = (data: IDeviceData, index: number) => {
@@ -124,7 +114,7 @@ const DeviceChart = () => {
             dataKey="percent"
             onMouseEnter={onPieEnter}
           >
-            {data.map((entry, index) => (
+            {data.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={

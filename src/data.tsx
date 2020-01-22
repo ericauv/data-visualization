@@ -1,3 +1,5 @@
+import { Point } from 'react-simple-maps';
+
 export enum Units {
   SUBSCRIBER = '',
   VOLUME = 'GB'
@@ -35,8 +37,7 @@ export interface IServiceData {
   value: number;
 }
 export interface IData {
-  lat: number;
-  lon: number;
+  coordinates: Point;
   kpi: IKPIs;
   traffic: ITrafficData[];
   device: IDeviceData[];
@@ -45,8 +46,7 @@ export interface IData {
 
 export const data: IData[] = [
   {
-    lat: 5,
-    lon: 5,
+    coordinates: [-58.3816, -34.6037],
     kpi: {
       subscriber: {
         value: 214000,
@@ -152,8 +152,7 @@ export const data: IData[] = [
     ]
   },
   {
-    lat: 3,
-    lon: 10,
+    coordinates: [-68.1193, -16.4897],
     kpi: {
       subscriber: {
         value: 413000,
