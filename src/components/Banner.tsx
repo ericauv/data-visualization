@@ -10,51 +10,20 @@ interface IBannerSectionProps {
   width: string | number;
 }
 
-const BannerStyles = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  height: 80px;
-  width: 100%;
-  background: rgb(64, 67, 66);
-  background: linear-gradient(
-    90deg,
-    rgba(64, 67, 66, 1) 0%,
-    rgba(83, 84, 85, 1) 50%,
-    rgba(99, 100, 100, 1) 100%
-  );
-`;
-
-const BannerSection = styled.div`
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
-  align-items: center;
-`;
-
-const BannerTitle = styled.div`
-  display: flex;
-  height: 70%;
-  h1 {
-    font-size: 14px;
-    color: white;
-    font-weight: 400;
-    margin: 0;
-    padding: 0;
-    margin-left: 20px;
-    padding-bottom: 15px; /* align with bottom of Sandvine in Logo */
-    align-self: flex-end;
-  }
-`;
-
-const BannerActions = styled.div`
+interface IIconSectionProps {
+  height?: string;
+  alignCenter?: boolean;
+}
+export const IconSection = styled.div<IIconSectionProps>`
   margin-left: auto;
   margin-right: 40px;
   display: flex;
-  height: 30%;
+  height: ${props => (props.height ? props.height : '30%')};
   width: 100%;
   stroke-width: 20;
-  justify-content: space-between;
+  justify-content: flex-end;
+
+  ${props => (props.alignCenter ? `align-items: center;` : '')}
 
   .badge {
     position: absolute;
@@ -95,6 +64,43 @@ const BannerActions = styled.div`
     }
   }
 `;
+const BannerStyles = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  height: 75px;
+  width: 100%;
+  background: rgb(64, 67, 66);
+  background: linear-gradient(
+    90deg,
+    rgba(64, 67, 66, 1) 0%,
+    rgba(83, 84, 85, 1) 50%,
+    rgba(99, 100, 100, 1) 100%
+  );
+`;
+
+const BannerSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+`;
+
+const BannerTitle = styled.div`
+  display: flex;
+  height: 70%;
+  margin-left: 20px;
+  h1 {
+    font-size: 14px;
+    color: white;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    margin-left: 20px;
+    padding-bottom: 15px; /* align with bottom of Sandvine in Logo */
+    align-self: flex-end;
+  }
+`;
 
 const Banner = () => {
   return (
@@ -106,7 +112,7 @@ const Banner = () => {
         </BannerTitle>
       </BannerSection>
       <BannerSection className="banner-section banner-section-actions">
-        <BannerActions className="banner-actions">
+        <IconSection className="icon-section">
           <div
             style={{
               position: 'relative',
@@ -125,7 +131,7 @@ const Banner = () => {
             className="bars icon-button icon-button-filled fill"
             height="100%"
           ></Bars>
-        </BannerActions>
+        </IconSection>
       </BannerSection>
     </BannerStyles>
   );

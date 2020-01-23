@@ -1,13 +1,15 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Point } from 'react-simple-maps';
-import KPICard from './components/KPICard';
+import Banner from './components/Banner';
+import ChartContainer from './components/ChartContainer';
 import DeviceChart from './components/DeviceChart';
+import KPICard from './components/KPICard';
+import MapChart from './components/MapChart';
+import NavBar from './components/NavBar';
 import ServiceChartsContainer from './components/ServiceChartsContainer';
 import TrafficChart from './components/TrafficChart';
-import ChartContainer from './components/ChartContainer';
-import Banner from './components/Banner';
-import MapChart from './components/MapChart';
+
 import { data, Units, TextAppend } from './data';
 
 export interface IAppState {
@@ -34,7 +36,6 @@ const AppStyles = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  width: 100%;
   height: 100%;
   margin-bottom: 20px;
 `;
@@ -61,6 +62,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <AppStyles className="App">
         <Banner></Banner>
+        <NavBar></NavBar>
         <Row>
           <KPICard
             name="Subscriber Count"
