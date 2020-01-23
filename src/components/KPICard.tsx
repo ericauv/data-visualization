@@ -17,7 +17,7 @@ const CardStyles = styled.div`
   flex-direction: column;
   justify-content: space-around;
   background: #eeeeee;
-  width: 30%;
+  width: 29%;
   height: 69px;
 `;
 const Content = styled.div`
@@ -41,8 +41,16 @@ const Value = styled.p`
   font-size: 28px;
 `;
 const Arrow = styled.p`
-  font-size: 24px;
-  font-weight: black;
+  font-size: 32px;
+  font-weight: 900;
+
+  &.positive {
+    color: green;
+  }
+
+  &.negative {
+    color: red;
+  }
 `;
 
 const KPICard: React.FC<IKPICardProps> = props => {
@@ -52,7 +60,7 @@ const KPICard: React.FC<IKPICardProps> = props => {
       <Content className="kpi-card-content">
         <Name className="kpi-card-content-name">{name}</Name>
         <Percent className="kpi-card-content-percent">
-          {percentValue >= 0 ? `+${percentValue}%` : `-${percentValue}%`}
+          {percentValue >= 0 ? `+${percentValue}%` : `${percentValue}%`}
         </Percent>
       </Content>
       <Content className="kpi-card-content">
@@ -62,7 +70,13 @@ const KPICard: React.FC<IKPICardProps> = props => {
             {`${unit ? ' ' : ''}${appendText}`}
           </span>
         </Value>
-        <Arrow className="kpi-card-content-arrow">↑</Arrow>
+        <Arrow
+          className={`kpi-card-content-arrow ${
+            percentValue >= 0 ? 'positive' : 'negative'
+          }`}
+        >
+          {percentValue >= 0 ? '↑' : '↓'}
+        </Arrow>
       </Content>
     </CardStyles>
   );

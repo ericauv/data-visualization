@@ -6,7 +6,7 @@ import {
   Marker,
   Point
 } from 'react-simple-maps';
-import { ThemeContext } from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import { IAppState } from '../App';
 
 interface IProps extends IAppState {
@@ -16,16 +16,18 @@ interface IProps extends IAppState {
 const geoUrl =
   'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json';
 
-const markers: Point[] = [
-  [-58.3816, -34.6037],
-  [-68.1193, -16.4897]
-];
+const MapChartContainer = styled.div`
+  width: 30%;
+  border: 1px solid lightgrey;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const MapChart: React.FC<IProps> = props => {
-  const { selectedPoint, setSelectedPoint } = props;
+  const { selectedPoint, setSelectedPoint, points } = props;
   const themeContext = useContext(ThemeContext);
   return (
-    <div style={{ width: '20%', marginLeft: 'auto', marginRight: 'auto' }}>
+    <MapChartContainer className="map-chart-container">
       <ComposableMap>
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
@@ -41,7 +43,7 @@ const MapChart: React.FC<IProps> = props => {
               ))
           }
         </Geographies>
-        {markers.map(point => (
+        {points.map(point => (
           <Marker
             cursor={'pointer'}
             onClick={() => setSelectedPoint(point)}
@@ -65,7 +67,7 @@ const MapChart: React.FC<IProps> = props => {
           </Marker>
         ))}
       </ComposableMap>
-    </div>
+    </MapChartContainer>
   );
 };
 

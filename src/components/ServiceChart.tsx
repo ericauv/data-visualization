@@ -50,7 +50,7 @@ const ServiceChart: React.FC<IProps> = props => {
 
   return (
     <ChartContainer>
-      <ResponsiveContainer height="100%" width="90%">
+      <ResponsiveContainer height="100%" width="100%">
         <ComposedChart
           layout="vertical"
           data={[data]}

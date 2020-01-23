@@ -7,6 +7,7 @@ import DeviceChart from './components/DeviceChart';
 import KPICard from './components/KPICard';
 import MapChart from './components/MapChart';
 import NavBar from './components/NavBar';
+import OptionsBar from './components/OptionsBar';
 import ServiceChartsContainer from './components/ServiceChartsContainer';
 import TrafficChart from './components/TrafficChart';
 
@@ -39,6 +40,11 @@ const AppStyles = styled.div`
   height: 100%;
   margin-bottom: 20px;
 `;
+const BodyStyles = styled.div`
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const Row = styled.div`
   margin-top: 20px;
@@ -61,51 +67,54 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <AppStyles className="App">
-        <Banner></Banner>
-        <NavBar></NavBar>
-        <Row>
-          <KPICard
-            name="Subscriber Count"
-            percentValue={location.kpi.subscriber.percent}
-            value={location.kpi.subscriber.value}
-            unit={Units.SUBSCRIBER}
-            appendText={TextAppend.SUBSCRIBER}
-          />
-          <KPICard
-            name="Video Volume"
-            percentValue={location.kpi.volumeVideo.percent}
-            value={location.kpi.volumeVideo.value}
-            unit={Units.VOLUME}
-            appendText={TextAppend.VOLUME_VIDEO}
-          />
-          <KPICard
-            name="Volume Saved"
-            percentValue={location.kpi.volumeSaved.percent}
-            value={location.kpi.volumeSaved.value}
-            unit={Units.VOLUME}
-            appendText={TextAppend.VOLUME_SAVED}
-          />
-        </Row>
-        <Row>
-          <MapChart
-            points={data.map(entry => entry.coordinates)}
-            selectedPoint={selectedPoint}
-            setSelectedPoint={setSelectedPoint}
-          ></MapChart>
-        </Row>
-        <Row>
-          <ChartContainer title="Location traffic by time of day">
-            <TrafficChart data={location.traffic}></TrafficChart>
-          </ChartContainer>
-          <ChartContainer title="Top Devices">
-            <DeviceChart data={location.device}></DeviceChart>
-          </ChartContainer>
-          <ChartContainer title="Top Services by Volume">
-            <ServiceChartsContainer
-              data={location.service}
-            ></ServiceChartsContainer>
-          </ChartContainer>
-        </Row>
+        <Banner />
+        <NavBar />
+        <BodyStyles className="body">
+          <OptionsBar />
+          <Row>
+            <KPICard
+              name="Subscriber Count"
+              percentValue={location.kpi.subscriber.percent}
+              value={location.kpi.subscriber.value}
+              unit={Units.SUBSCRIBER}
+              appendText={TextAppend.SUBSCRIBER}
+            />
+            <KPICard
+              name="Video Volume"
+              percentValue={location.kpi.volumeVideo.percent}
+              value={location.kpi.volumeVideo.value}
+              unit={Units.VOLUME}
+              appendText={TextAppend.VOLUME_VIDEO}
+            />
+            <KPICard
+              name="Volume Saved"
+              percentValue={location.kpi.volumeSaved.percent}
+              value={location.kpi.volumeSaved.value}
+              unit={Units.VOLUME}
+              appendText={TextAppend.VOLUME_SAVED}
+            />
+          </Row>
+          <Row>
+            <MapChart
+              points={data.map(entry => entry.coordinates)}
+              selectedPoint={selectedPoint}
+              setSelectedPoint={setSelectedPoint}
+            ></MapChart>
+          </Row>
+          <Row>
+            <ChartContainer title="Location traffic by time of day">
+              <TrafficChart data={location.traffic}></TrafficChart>
+            </ChartContainer>
+            <ChartContainer title="Top Devices">
+              <DeviceChart data={location.device}></DeviceChart>
+            </ChartContainer>
+            <ChartContainer title="Top Services by Volume">
+              <ServiceChartsContainer
+                data={location.service}
+              ></ServiceChartsContainer>
+            </ChartContainer>
+          </Row>
+        </BodyStyles>
       </AppStyles>
     </ThemeProvider>
   );

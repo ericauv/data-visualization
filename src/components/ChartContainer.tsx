@@ -9,11 +9,11 @@ const ChartContainerStyles = styled.div`
   border: 0.5px solid #eeeeee;
   padding: 10px;
   padding-top: 0px;
-  margin: 20px 20px 20px 20px;
+  margin: 10px 10px 10px 10px;
   display: flex;
   flex-direction: column;
   width: 30%;
-  height: 450px;
+  height: 400px;
 `;
 const ChartTitleStyles = styled.h2`
   padding: 0;

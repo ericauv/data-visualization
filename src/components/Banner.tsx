@@ -13,6 +13,7 @@ interface IBannerSectionProps {
 interface IIconSectionProps {
   height?: string;
   alignCenter?: boolean;
+  color?: string;
 }
 export const IconSection = styled.div<IIconSectionProps>`
   margin-left: auto;
@@ -39,7 +40,7 @@ export const IconSection = styled.div<IIconSectionProps>`
   .icon-button {
     margin-left: 10px;
     margin-right: 10px;
-    stroke: white;
+    stroke: ${props => (props.color ? props.color : 'white')};
     cursor: pointer;
   }
   .no-fill {
@@ -48,14 +49,14 @@ export const IconSection = styled.div<IIconSectionProps>`
     }
     :hover {
       path {
-        fill: white;
+        fill: ${props => (props.color ? props.color : 'white')};
       }
     }
   }
 
   .fill {
     path {
-      fill: white;
+      fill: ${props => (props.color ? props.color : 'white')};
     }
     :hover {
       path {
